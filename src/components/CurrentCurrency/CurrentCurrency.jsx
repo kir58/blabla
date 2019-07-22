@@ -1,31 +1,42 @@
 import React from "react";
 import styles from "./CurrentCurrency.css";
-import axios from "axios"
+import * as actions from '../../actions';
+import { connect } from "react-redux";
+import { getAllValutes, getFavouriteValutes } from "../../selectors";
+
+const mapStateToProps = state => ({
+  allValutes: getAllValutes(state),
+  getFavouriteValutes: getFavouriteValutes(state)
+});
+
+const actionCreators = {
+  toggleFavouriteValute: actions.toggleFavouriteValute,
+};
 
 class ConvertCurrency extends React.Component {
-  
-  state = { valutes: [], texInput: '', fetchingState: 'none' };
-  componentDidMount() {
-    this.getValutes();
+  handleToggleFavouriteValute = code => () => {
+    const { toggleFavouriteValute } = this.props;
+    console.log(this.props)
+    toggleFavouriteValute({ code });
   }
-  getValutes = async () => {
-    this.setState({ fetchingState: 'requested' });
-    try {
-      const response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
-      this.setState({ valutes: response.data.Valute, fetchingState: 'finished' });
-    } catch (e) {
-      this.setState({ fetchingState: 'failed' });
-    }
-  }
-	render() {
-    const { valutes } = this.state
-    const keys = Object.keys(valutes)
+ 	render() {
+    const { allValutes } = this.props;
+    console.log(allValutes)
 		return (
-      <ul>{keys.map(key => (
-        <li>{valutes[key].Name}</li>
-      ))}
-      </ul>
+      <>
+        <div>
+          <p>Базовая валюта</p>
+        </div>
+        <ul className={styles.list}>{allValutes.map(valute => (
+          <li key={value.Id} className={styles.item}>
+            <div className={styles.name}>{valute.Name}</div>
+            <div className={styles.value}>{valute.Value}</div> 
+            <button className={styles.favourit} onClick={this.handleToggleFavouriteValute(key)}>Добавить в избранное</button>
+          </li>
+        ))}
+        </ul>
+      </>
     )
 	}
 }
-export default ConvertCurrency
+export default connect(mapStateToProps, actionCreators)(ConvertCurrency);

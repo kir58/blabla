@@ -1,0 +1,21 @@
+.list {
+	list-style: none;
+	padding: 0;
+}
+.item {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
+}
+.name {
+	width: 33%;
+}
+.value {
+	width: 33%;
+}
+/* .favourit {
+	display: none;
+} */
+.favourit::after {
+}
