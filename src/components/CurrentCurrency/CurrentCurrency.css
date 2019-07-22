@@ -2,20 +2,48 @@
 	list-style: none;
 	padding: 0;
 }
+.title {
+	padding-bottom: 10px;
+}
 .item {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	margin-bottom: 10px;
+	margin: 15px 0;
+	padding: 10px;
+	border-bottom: 1px dashed grey;
 }
-.name {
+.tableHeader {
+	display: flex;
+	justify-content: space-between;
+	font-weight: bolder;
+	padding: 10px;
+	background-color:  #28467f;
+	color: #eff1f5;
+}
+.tableHeader_element {
+	width: 33%;
+	/* border:1px solid; */
+}
+.tableHeader_element:not(:first-child) {
+	text-align: center;
+}
+.tabaleRow_element {
 	width: 33%;
 }
-.value {
-	width: 33%;
+.tabaleRow_element:not(:first-child) {
+	text-align: center;
 }
-/* .favourit {
+.favourit {
 	display: none;
-} */
-.favourit::after {
+}
+.label {
+	cursor: pointer;
+	color: rgb(30, 253, 0);
+}
+.inFavourit {
+	color: rgb(185, 24, 24);
+}
+.title {
+	text-align: center;
 }

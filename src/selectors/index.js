@@ -9,7 +9,8 @@ export const getAllValutes = createSelector(
   getValutesByCode,
   getAllCod,
   (favouriteValutes, valutesByCode, allCods) => {
-   const validCods = allCods.lenght > 0 ?  [... new Set([...valutesByCode, ...allCods])] : [];
-   return validCods.map(code => favouriteValutes[code]);
+   const validCods = allCods.length !== 0 ?  [... new Set(favouriteValutes.concat(allCods))] : [];
+   console.log(allCods)
+   return validCods.map(code => valutesByCode[code]);
   }
 );
