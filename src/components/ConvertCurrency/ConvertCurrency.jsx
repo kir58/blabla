@@ -2,17 +2,18 @@ import React from "react";
 import styles from "./ConvertCurrency.css";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { getAllValutes, getFavouriteValutes, getAllCods, getConvertValute  } from "../../selectors";
+import { getAllValutes, getCurrentList, getConvertList, getConvertValute  } from "../../selectors";
 
 const mapStateToProps = state => ({
   allValutes: getAllValutes(state),
-	allCods: getAllCods(state),
+	currentList: getCurrentList(state),
+	convertList: getConvertList(state),
 	convertValute: getConvertValute(state),
 });
 
 class ConvertCurrency extends React.Component {
 	render() {
-		const { allValutes, allCods } = this.props;
+		const { allValutes, currentList, convertList } = this.props;
 		console.log(allValutes)
 		return (
 			<form className={styles.convertForm}>
@@ -23,7 +24,7 @@ class ConvertCurrency extends React.Component {
 						required
 						component="select"
 					>
-					 {allCods.map((opt, i) => (
+					 {convertList.map((opt, i) => (
 						<option key={i} value={opt}>{opt}</option>
 					))}
 					</Field>
@@ -43,7 +44,7 @@ class ConvertCurrency extends React.Component {
 						required
 						component="select"
 					>
-					 {allCods.reverse().map((opt, i) => (
+					 {currentList.map((opt, i) => (
 						<option key={i} value={opt}>{opt}</option>
 					))}
 				</Field>
@@ -56,8 +57,8 @@ class ConvertCurrency extends React.Component {
 const ConvertCurrencyForm = reduxForm({ form: 'CurrentForm', 
 	initialValues: {
 		currentValute: 1,
-		currentCountry: 'AUD',
-		convertCountry: 'AZN',
+		currentCountry: 'RUB',
+		convertCountry: 'USD',
 	}
 })(ConvertCurrency)
 export default connect(mapStateToProps)(ConvertCurrencyForm)

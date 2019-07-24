@@ -4,6 +4,7 @@ export const getFavouriteValutes = state => state.valutes.favouriteValutes
 const getValutesByCode = state => state.valutes.valutesByCode
 export const getAllCods = state => state.valutes.allCods
 
+
 export const getAllValutes = createSelector(
   getFavouriteValutes,
   getValutesByCode,
@@ -15,8 +16,8 @@ export const getAllValutes = createSelector(
 );
 const defaultValues = {
   currentValute: 1,
-  currentCountry: 'AUD',
-  convertCountry: 'AZN',
+  currentCountry: 'RUB',
+  convertCountry: 'USD',
 }
 const getFormValues = state => state.form.CurrentForm ? state.form.CurrentForm.values : defaultValues
 export const getConvertValute = createSelector(
@@ -24,9 +25,27 @@ export const getConvertValute = createSelector(
   getFormValues,
   (valutesByCode, values) => {
     const { currentCountry, currentValute, convertCountry } = values;
-    const valueCurrentValute = valutesByCode[currentCountry] ? valutesByCode[currentCountry].Value : 1;
-    const valueConvertValute = valutesByCode[convertCountry] ? valutesByCode[convertCountry].Value : 1;
+    const valueCurrentValute = valutesByCode[currentCountry] 
+      ? valutesByCode[currentCountry].Value / valutesByCode[currentCountry].Nominal : 1;
+    const valueConvertValute = valutesByCode[convertCountry]
+      ? valutesByCode[convertCountry].Value / valutesByCode[convertCountry].Nominal : 1;
     const currentMult = valueCurrentValute * currentValute;
     return valueConvertValute / currentMult;
   }
-)
+);
+
+export const getCurrentList =  createSelector(
+  getAllCods,
+  getFormValues,
+  (allCods, values) => {
+    return allCods.filter(code => code !== values.convertCountry);
+  } 
+);
+
+export const getConvertList =  createSelector(
+  getAllCods,
+  getFormValues,
+  (allCods, values) => {
+    return allCods.filter(code => code !== values.currentCountry);
+  } 
+);
