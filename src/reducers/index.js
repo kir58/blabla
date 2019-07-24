@@ -38,5 +38,6 @@ const valutes = handleActions(
 
 export default combineReducers({
   friendsFetchingState,
-  valutes
+  valutes,
+  form: formReducer,
 });

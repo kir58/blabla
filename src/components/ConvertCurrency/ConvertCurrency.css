@@ -1,0 +1,12 @@
+.convertForm {
+  margin: 20 auto;
+  padding: 20px;
+  border: 1px solid #28467f;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.valuteIntup {
+  font-size: 16px;
+  padding: 10px;
+}
