@@ -10,7 +10,7 @@ export const fetchValutes = () => async dispatch => {
   dispatch(fetchValutesRequest());
   try {
     const response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
-    dispatch(fetchValutesSuccess({ valutes: { 'RUB': { Value: 1, Nominal: 1}, ...response.data.Valute }}));
+    dispatch(fetchValutesSuccess({ valutes: { 'RUB': { CharCode: 'RUS', Value: 1, Nominal: 1 }, ...response.data.Valute }}));
   } catch (e) {
     dispatch(fetchValutesFailure());
   }

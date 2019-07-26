@@ -36,7 +36,8 @@ class ConvertCurrency extends React.Component {
           <div className={styles.tableHeader_element}>Значение</div>
           <div className={styles.tableHeader_element}>Избранное</div>
         </div>
-        <ul className={styles.list}>{allValutes.map(valute => (
+        <ul className={styles.list}>{allValutes.map(valute => valute.CharCode === 'RUS' ? null :
+          (
           <li key={valute.Id} className={styles.item}>
             <div className={styles.tabaleRow_element}>{valute.Name} ({valute.CharCode})</div>
             <div className={styles.tabaleRow_element}>{valute.Value}</div> 

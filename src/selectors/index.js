@@ -16,10 +16,12 @@ export const getAllValutes = createSelector(
 );
 const defaultValues = {
   currentValute: 1,
+  convertValute:1,
   currentCountry: 'RUB',
   convertCountry: 'USD',
 }
 const getFormValues = state => state.form.CurrentForm ? state.form.CurrentForm.values : defaultValues
+
 export const getConvertValute = createSelector(
   getValutesByCode,
   getFormValues,
@@ -30,7 +32,25 @@ export const getConvertValute = createSelector(
     const valueConvertValute = valutesByCode[convertCountry]
       ? valutesByCode[convertCountry].Value / valutesByCode[convertCountry].Nominal : 1;
     const currentMult = valueCurrentValute * currentValute;
+    console.log(valueCurrentValute, valueConvertValute)
     return valueConvertValute / currentMult;
+  }
+);
+
+export const getCurrentValute = createSelector(
+  getValutesByCode,
+  getFormValues,
+  (valutesByCode, values) => {
+    const { currentCountry, convertValute, convertCountry } = values;
+
+    const valueCurrentValute = valutesByCode[currentCountry] 
+      ? valutesByCode[currentCountry].Value / valutesByCode[currentCountry].Nominal : 1;
+
+    const valueConvertValute = valutesByCode[convertCountry]
+      ? valutesByCode[convertCountry].Value / valutesByCode[convertCountry].Nominal : 1;
+
+    const convertMult = valueConvertValute * convertValute;
+    return valueCurrentValute / convertMult;
   }
 );
 
